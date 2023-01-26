@@ -1,0 +1,44 @@
+.conversation-list{
+    border: 1px #000 solid;
+    border-radius: 10px;
+    height: 480px;
+    overflow-y: scroll;
+    position: relative;
+    width: 640px;
+}
+
+/** Scrollbar Styles **/
+.conversation-list::-webkit-scrollbar {
+    width: 1em;
+}
+
+.conversation-list::-webkit-scrollbar-track {
+    background-color: #f9f9f9;
+}
+
+.conversation-list::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 10rem;
+    outline: 1px solid slategrey;
+}
+
+/** Conversation List **/
+.conversation-list-content{
+    
+}
+.conversation-list .message{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.conversation-list .message-left .message-container{
+    
+}
+.conversation-list .message-right .message-container{
+    
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+textarea{ display: block; }
