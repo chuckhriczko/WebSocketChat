@@ -91,3 +91,20 @@ button{
     top: -0.5rem;
     z-index: 9;
 }
+
+/** Responsive Styles **/
+@media (max-width: 1200px){
+    .grid{
+        display: block;
+    }
+    textarea,
+    input[type="text"],
+    button{
+        width: 98%;
+    }
+    button{
+        margin: 0;
+        padding: 0.5rem 1rem;
+        width: 100%;
+    }
+}
