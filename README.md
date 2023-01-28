@@ -1,2 +1,7 @@
-# ReactSocketContext
-A React Context for sharing a WebSocket connection throughout an app
+# WebSocketChat
+A sample application built using React to showcase my React WebSocket Context
+
+# To Run:
+```
+npm run dev
+```
