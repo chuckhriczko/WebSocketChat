@@ -50,24 +50,24 @@ function App() {
         username={username}
         />
       {/* Inputs */}
-      <div className="inputs grid">
+      <div className="inputs">
+        <textarea
+          placeholder="Enter message here..."
+          onChange={(e) => setText(e.target.value)}
+          defaultValue={text}
+          />
         <div className="grid">
-          <textarea
-            placeholder="Enter message here..."
-            onChange={(e) => setText(e.target.value)}
-            defaultValue={text}
-            />
           <input
             type="text"
             placeholder="Name"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             />
+          <button
+            type="button"
+            onClick={sendMessage}
+          >Send</button>
         </div>
-        <button
-          type="button"
-          onClick={sendMessage}
-        >Send</button>
       </div>
     </div>
   )

@@ -1,10 +1,67 @@
+/** Base Styles **/
+html{
+    background-color: #333;
+    color: #efefef;
+}
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+button,
+p,
+div,
+span,
+section{
+    font-family: "Source Sans Pro";
+}
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+textarea,
+input[type="text"]{
+    background: #444;
+    border: 1px #666 solid;
+    color: #cdcdcd;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    line-height: 1.25;
+    font-size: 1.125rem;
+}
+textarea{
+    height: 4rem;
+    width: 100%;
+}
+input[type="text"]{
+    display: inline-block;
+    font-size: 1rem;
+}
+button{
+    margin-left: 1rem;
+    width: 3rem;
+}
+
+/** Conversation List **/
 .conversation-list{
-    border: 1px #000 solid;
+    border: 1px #666 solid;
     border-radius: 10px;
     height: 480px;
     overflow-y: scroll;
     position: relative;
     width: 100%;
+}
+.conversation-list .message{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 /** Scrollbar Styles **/
@@ -22,28 +79,9 @@
     outline: 1px solid slategrey;
 }
 
-/** Conversation List **/
-.conversation-list-content{
-    
+/** Misc Styles **/
+.inputs{
+    position: relative;
+    top: -0.5rem;
+    z-index: 9;
 }
-.conversation-list .message{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-.conversation-list .message-left .message-container{
-    
-}
-.conversation-list .message-right .message-container{
-    
-}
-
-.grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-textarea,
-input{
-    display: block;
-    height: 4rem;
-}
-button{ padding: 1rem 0; }
