@@ -5,14 +5,16 @@ import Message from "../../lib/types/Message";
 //Assets
 import './ConversationList.css';
 import { useState } from "react";
+import { useSocket } from '../../lib/contexts/SocketContext/hooks/useSocket';
+import { useSocketOnMessage } from '../../lib/contexts/SocketContext/hooks/useSocketOnMessage';
 
 const ConversationList = ({
     className = '',
     header = null,
     messages = [],
+    username = ''
 }: ConversationListProps) => {
-  const [text, setText] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
+  
 
   return (
     <>
@@ -22,33 +24,20 @@ const ConversationList = ({
 
         {/* Content */}
         <div className={`conversation-list-content`}>
-          {messages.map((message: Message) => <div className={`message message-${message.id} message-${message.isMe ? 'right' : 'left'}`} key={`message-${message.id}`}>
-            {message.isMe ? <div></div> : <></>}
-            <div className={`message-container`}>
-              <div className="message-content">{message.content}</div>
-              <div className="message-author">{message.username}</div>
+          {messages.map((message: Message) => {
+            return <div
+              key={`message-${message.id}`}
+              className={`message message-${message.id} message-${message.username && message.username.toLowerCase() === username ? 'right' : 'left'}`}
+            >
+              {message.username && message.username.toLowerCase() === username ? <div></div> : <></>}
+              <div className={`message-container`}>
+                <div className="message-content">{message.content}</div>
+                <div className="message-author">{message.username} - <span className="message-date">{message.date ? `${new Date(message.date).toLocaleDateString()} ${new Date(message.date).toLocaleTimeString()}` : ''}</span></div>
+              </div>
+              {message.username && message.username.toLowerCase() === username ? <div></div> : <></>}
             </div>
-            {!message.isMe ? <div></div> : <></>}
-          </div>)}
+          })}
         </div>
-      </div>
-
-      {/* Inputs */}
-      <div className="inputs grid">
-        <div className="grid">
-          <textarea
-            placeholder="Enter message here..."
-            onChange={(e) => setText(e.target.value)}
-            defaultValue={text}
-            />
-          <input
-            type="text"
-            placeholder="Name"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            />
-        </div>
-        <button type="button">Send</button>
       </div>
     </>
   )

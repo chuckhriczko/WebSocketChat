@@ -1,6 +1,7 @@
 export default interface Message{
     content: string;
-    id: number;
-    isMe: boolean;
     username: string;
+
+    id?: number;
+    date?: Date;
 }

@@ -8,37 +8,67 @@ import Message from './lib/types/Message';
 
 function App() {
   //Our time hook. This is simply a string that will be updated by our SocketContext
-  const [lastTime, setLastTime] = useState<string>('N/A');
-  const [time, setTime] = useState<string>(new Date().toLocaleTimeString());
-  
-  //Get our WebSocket connection
-  const socket = useSocket();
-
-  //When the socket is open, send the activity request
-  useSocketOnOpen((message: any) => {
-    console.log('Socket Connected');
-  });
+  const [messages, setMessages] = useState<Message[]>([]);
   
   //When we receieve a message from the WebSocket, update the actions
   useSocketOnMessage((message: MessageEvent) => {
-    setLastTime(current => time);
-    setTime(current => message.data);
+    console.log('New Message: ', message.data);
+
+    try{
+      const msg: Message = JSON.parse(message.data);
+
+      //Only add the message if it doesn't already exist
+      if (messages.filter(m => m.id === msg.id).length === 0){
+        setMessages(current => [msg, ...current]);
+      }
+    } catch(err: any){
+      console.error('Error parsing message: ' + err.message);
+    }
   });
 
-  //When we receieve a message from the WebSocket, update the actions
-  useSocketOnClose((message: MessageEvent) => {
-    console.log('Socket Closed');
-  });
+  const [text, setText] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
 
-  const messages: Message[] = [
-    {id: 1, content: 'hello world', username: 'Chuck', isMe: true},
-    {id: 2, content: 'How are you?', username: 'Sam', isMe: false},
-    {id: 3, content: 'Not bad', username: 'Chuck', isMe: true},
-  ];
+  const ws = useSocket();
+
+  const sendMessage = () => {
+    if (ws.readyState === ws.OPEN){
+      const message: Message = {
+        content: text,
+        username
+      }
+
+      ws.send(JSON.stringify(message));
+    }
+  }
 
   return (
     <div className="App">
-      <ConversationList header={<h3>Messages:</h3>} messages={messages} />
+      <ConversationList
+        header={<h3>Messages:</h3>}
+        messages={messages}
+        username={username}
+        />
+      {/* Inputs */}
+      <div className="inputs grid">
+        <div className="grid">
+          <textarea
+            placeholder="Enter message here..."
+            onChange={(e) => setText(e.target.value)}
+            defaultValue={text}
+            />
+          <input
+            type="text"
+            placeholder="Name"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            />
+        </div>
+        <button
+          type="button"
+          onClick={sendMessage}
+        >Send</button>
+      </div>
     </div>
   )
 }

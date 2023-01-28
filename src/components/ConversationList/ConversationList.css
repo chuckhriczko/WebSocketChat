@@ -4,7 +4,7 @@
     height: 480px;
     overflow-y: scroll;
     position: relative;
-    width: 640px;
+    width: 100%;
 }
 
 /** Scrollbar Styles **/
@@ -41,4 +41,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
-textarea{ display: block; }
+textarea,
+input{
+    display: block;
+    height: 4rem;
+}
+button{ padding: 1rem 0; }
