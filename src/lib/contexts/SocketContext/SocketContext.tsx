@@ -3,14 +3,15 @@ import ISocketProvider from "./interfaces/ISocketProvider";
 import Constants from "../../constants";
 
 //WebSocket settings
+const webSocketUrl = Constants.WEBSOCKET_URL;
 const reconnectTimeout = 10 * 1000; //10 Seconds
 
 //Reconnect timer
-//let reconnectTimer: NodeJS.Timeout | null = null;
+let reconnectTimer: ReturnType<typeof setInterval> | null = null;
 
 //This is our WebSocket connection. We will use the context to access this
 //specific object.
-export let ws = new WebSocket(Constants.WEBSOCKET_URL);
+export let ws = new WebSocket(webSocketUrl);
 
 //WebSocket React Context
 export const SocketContext = createContext(ws);
@@ -30,7 +31,7 @@ export const wsOpen = async () => {
  */
 export const wsClose = (e: any) => {
   console.log(`Socket is closed. Reconnect will be attempted in ${reconnectTimeout/1000} seconds.`, e.reason);
-  //reconnectTimer = setInterval(wsReconnect, reconnectTimeout);
+  reconnectTimer = setInterval(wsReconnect, reconnectTimeout);
 
   //Extra closey stuff goes here
 }
@@ -46,7 +47,7 @@ export const wsError = (e: any) => wsClose(e);
  * Reconnects the WebSocket after a timeout
  * @returns WebSocket | null
  */
-/*export const wsReconnect = () => {
+export const wsReconnect = () => {
   ws = new WebSocket(webSocketUrl);
   if (ws && reconnectTimer){
     console.log('Socket reconnected');
@@ -57,7 +58,7 @@ export const wsError = (e: any) => wsClose(e);
   
   //Return the new WebSocket connection
   return ws;
-}*/
+}
 
 /**
  * SocketProvider, which allows us to share the WebSocket connection throughout the app

@@ -18,6 +18,7 @@ p,
 div,
 span,
 section{
+    color: #efefef;
     font-family: "Source Sans Pro";
 }
 .grid{
@@ -46,8 +47,12 @@ input[type="text"]{
     font-size: 1rem;
 }
 button{
+    background-color: #666;
+    border: #333;
+    color: #cdcdcd;
+    cursor: pointer;
     margin-left: 1rem;
-    width: 3rem;
+    width: 10rem;
 }
 
 /** Conversation List **/
@@ -56,6 +61,7 @@ button{
     border-radius: 10px;
     height: 480px;
     overflow-y: scroll;
+    padding: 0 1rem;
     position: relative;
     width: 100%;
 }

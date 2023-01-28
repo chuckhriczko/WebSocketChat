@@ -4,9 +4,6 @@ import Message from "../../lib/types/Message";
 
 //Assets
 import './ConversationList.css';
-import { useState } from "react";
-import { useSocket } from '../../lib/contexts/SocketContext/hooks/useSocket';
-import { useSocketOnMessage } from '../../lib/contexts/SocketContext/hooks/useSocketOnMessage';
 
 const ConversationList = ({
     className = '',

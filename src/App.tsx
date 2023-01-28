@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useSocket } from './lib/contexts/SocketContext/hooks/useSocket';
-import { useSocketOnClose } from './lib/contexts/SocketContext/hooks/useSocketOnClose';
 import { useSocketOnMessage } from './lib/contexts/SocketContext/hooks/useSocketOnMessage';
-import { useSocketOnOpen } from './lib/contexts/SocketContext/hooks/useSocketOnOpen';
 import ConversationList from './components/ConversationList';
 import Message from './lib/types/Message';
 
@@ -12,8 +10,6 @@ function App() {
   
   //When we receieve a message from the WebSocket, update the actions
   useSocketOnMessage((message: MessageEvent) => {
-    console.log('New Message: ', message.data);
-
     try{
       const msg: Message = JSON.parse(message.data);
 
@@ -26,11 +22,16 @@ function App() {
     }
   });
 
+  //Set up our hooks
   const [text, setText] = useState<string>('');
   const [username, setUsername] = useState<string>('');
 
+  //Get a handle on our WebSocket
   const ws = useSocket();
 
+  /**
+   * Generates a message object and sends it to the API
+   */
   const sendMessage = () => {
     if (ws.readyState === ws.OPEN){
       const message: Message = {
